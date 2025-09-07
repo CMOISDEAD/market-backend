@@ -10,10 +10,10 @@ import * as path from 'path';
     MailerModule.forRootAsync({
       useFactory: () => ({
         transport: {
-          name: 'www.marketplace.com',
+          name: process.env.BACKEND_URL,
           host: process.env.MAIL_HOST,
           port: +process.env.MAIL_PORT!,
-          secure: false,
+          secure: true,
           auth: {
             user: process.env.MAIL_FROM,
             pass: process.env.MAIL_PASS,
