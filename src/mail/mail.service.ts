@@ -23,7 +23,7 @@ export class MailService {
   }
 
   async sendWelcomeEmail(user: User) {
-    const activationLink = `${process.env.FRONTEND_URL}/activate/${user.id}`;
+    const activationLink = `${process.env.FRONTEND_URL}/auth/activate/${user.id}`;
     await this.mailerService.sendMail({
       to: user.email,
       subject: 'Bienvenido a Market',
