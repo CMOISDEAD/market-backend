@@ -34,8 +34,13 @@ export class AuthController {
     );
     res.cookie('token', payload.accessToken, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
+      secure: process.env.NODE_ENV === 'production', // en dev no usa HTTPS
+      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+      domain:
+        process.env.NODE_ENV === 'production'
+          ? '.martinezboutique.store'
+          : undefined,
+      path: '/',
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
     return payload;
