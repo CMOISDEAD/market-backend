@@ -22,11 +22,16 @@ export class AuthController {
   @ApiOperation({ summary: 'Login a user and return access token' })
   @ApiOkResponse({ type: AuthEntity })
   async login(
-    @Body() { email, password }: LoginDto,
+    @Body() { email, password, captchaToken }: LoginDto,
     @Req() req: Request,
     @Res({ passthrough: true }) res: Response,
   ) {
-    const payload = await this.authService.login(email, password, req);
+    const payload = await this.authService.login(
+      email,
+      password,
+      captchaToken,
+      req,
+    );
     res.cookie('token', payload.accessToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
@@ -69,6 +74,12 @@ export class AuthController {
       secure: process.env.NODE_ENV === 'production',
     });
     return { message: 'Logged out successfully' };
+  }
+
+  @Post('/request-verify')
+  @ApiOkResponse({ description: 'message with value' })
+  requestVerify(@Body() { token }: { token: string }) {
+    return this.authService.verifyRequestReset(token);
   }
 
   @Post('/request-reset')
