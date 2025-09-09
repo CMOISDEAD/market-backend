@@ -34,8 +34,8 @@ export class AuthController {
     );
     res.cookie('token', payload.accessToken, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production', // en dev no usa HTTPS
-      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
       domain:
         process.env.NODE_ENV === 'production'
           ? '.martinezboutique.store'
@@ -75,8 +75,12 @@ export class AuthController {
   logout(@Res({ passthrough: true }) res: Response) {
     res.clearCookie('token', {
       httpOnly: true,
-      sameSite: 'strict',
+      sameSite: 'lax',
       secure: process.env.NODE_ENV === 'production',
+      domain:
+        process.env.NODE_ENV === 'production'
+          ? '.martinezboutique.store'
+          : undefined,
     });
     return { message: 'Logged out successfully' };
   }
