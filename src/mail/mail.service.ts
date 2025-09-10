@@ -97,7 +97,7 @@ export class MailService {
       subject: `Order ${order.id} paid successfully`,
       template: 'order-paid',
       context: {
-        orderId: order.id,
+        url: `${process.env.FRONTEND_URL}/orders/${order.id}`,
       },
     });
 
@@ -121,7 +121,7 @@ export class MailService {
       subject: `Order ${order.id} was rejected.`,
       template: 'order-rejected',
       context: {
-        orderId: order.id,
+        url: `${process.env.FRONTEND_URL}/orders/${order.id}`,
       },
     });
 
