@@ -38,7 +38,7 @@ export class MailService {
   async sendLoginEmail(user: User) {
     await this.mailerService.sendMail({
       to: user.email,
-      subject: '⚡ Inicio de sesión detectado',
+      subject: 'Inicio de sesión detectado',
       template: 'login',
       context: {
         fullnames: user.name,

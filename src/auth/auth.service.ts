@@ -124,7 +124,7 @@ export class AuthService {
       success: true,
     });
 
-    await this.mailService.sendLoginEmail(user);
+    // await this.mailService.sendLoginEmail(user);
 
     return {
       message: 'Login successful',

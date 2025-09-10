@@ -68,7 +68,7 @@ export class PaymentsService {
         payment.external_reference!,
         payment,
       );
-      await this.mailService.paymentAprovedEmail(order.id);
+      await this.mailService.paymentRejectedEmail(order.id);
     } else if (payment.status === 'refunded') {
       this.ordersHelperService.markAsRefund(payment.external_reference!);
     } else {
